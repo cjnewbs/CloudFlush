@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Newbury_CloudFlush>
+            <version>1.0.0</version>
+        </Newbury_CloudFlush>
+    </modules>
+    <global>
+        <models>
+            <newburycloudflush>
+                <class>cloudflush_Model</class>
+            </newburycloudflush>
+        </models>
+        <events>
+            <adminhtml_cache_flush_system>
+                <observers>
+                    <newbury_cloudflush_model_observer>
+                        <type>singleton</type>
+                        <class>Newbury_CloudFlush_Model_Observer</class>
+                        <method>flush</method>
+                    </newbury_cloudflush_model_observer>
+                </observers>
+            </adminhtml_cache_flush_system>
+            <admin_system_config_changed_section_cloudflush>
+                <observers>
+                    <newbury_cloudflush_model_observer>
+                        <type>singleton</type>
+                        <class>Newbury_CloudFlush_Model_Observer</class>
+                        <method>saveConfig</method>
+                    </newbury_cloudflush_model_observer>
+                </observers>
+            </admin_system_config_changed_section_cloudflush>
+        </events>
+        <helpers>
+            <cloudflush>
+                <class>Newbury_CloudFlush_Helper</class>
+            </cloudflush>
+        </helpers>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Newbury_CloudFlush>
+                            <title>CloudFlush Module</title>
+                        </Newbury_CloudFlush>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <cloudflush translate="title" module="cloudflush">
+                                            <title>CloudFlush</title>
+                                        </cloudflush>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
