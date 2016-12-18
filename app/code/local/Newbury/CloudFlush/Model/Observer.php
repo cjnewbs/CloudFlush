@@ -105,16 +105,18 @@ class Newbury_CloudFlush_Model_Observer {
         }
 
         $response = curl_exec($ch);
-        curl_close($ch);
         if(curl_error($ch))
         {
             Mage::log(curl_error($ch), null, 'CloudFlush.log', true);
+            curl_close($ch);
             return false;
         } else {
             if ($response === '') {
                 Mage::log('CURL_EXECUTED:EMPTY_RESPONSE', null, 'CloudFlush.log', true);
+                curl_close($ch);
                 return false;
             } else {
+                curl_close($ch);
                 return $response;
             }
         }
